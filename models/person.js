@@ -5,7 +5,13 @@ const p = path.join(path.dirname(process.mainModule.filename),'data','myData.jso
 module.exports=class Person{
     constructor(person){
         this.firstName= person.firstName;
-        this.lastName=person.lastName
+        this.lastName=person.lastName;
+        this.Age=person.Age;
+        this.dob=person.dob;
+        this.ssi=person.ssi;
+        this.ts=person.ts;
+        this.ss=person.ss;
+        this.img=person.img;
     }
 
     saveData(){
@@ -21,5 +27,14 @@ module.exports=class Person{
                 console.log("error: ", error);
             });               
         });
+    }
+
+    static fetchData(callBack){
+        fs.readFile(p, (error,fileContent)=>{
+            if(error){
+                callBack([]);
+            }
+            callBack(JSON.parse(fileContent));
+        })
     }
 }
